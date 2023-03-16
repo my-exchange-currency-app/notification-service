@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.demo.skyros</groupId>
-    <artifactId>currency-mail-service</artifactId>
+    <artifactId>mail-service</artifactId>
     <version>1.0.0</version>
-    <name>currency-mail-service</name>
-    <description>fawry-mail-service</description>
+    <name>mail-service</name>
+    <description>mail-service</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.6</spring-cloud.version>
