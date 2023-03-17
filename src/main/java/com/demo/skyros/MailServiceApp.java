@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CurrencyMailServiceApp {
+public class MailServiceApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(CurrencyMailServiceApp.class, args);
+        SpringApplication.run(MailServiceApp.class, args);
     }
 
 }

@@ -2,7 +2,7 @@ package com.demo.skyros.vo;
 
 import java.math.BigDecimal;
 
-public class CurrencyExchangeVO {
+public class CurrencyVO {
 
     private Long id;
     private String from;
@@ -12,10 +12,10 @@ public class CurrencyExchangeVO {
     private BigDecimal quantity;
     private String environment;
 
-    public CurrencyExchangeVO() {
+    public CurrencyVO() {
     }
 
-    public CurrencyExchangeVO(Long id, String from, String to, BigDecimal conversionMultiple, String environment) {
+    public CurrencyVO(Long id, String from, String to, BigDecimal conversionMultiple, String environment) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -23,7 +23,7 @@ public class CurrencyExchangeVO {
         this.environment = environment;
     }
 
-    public CurrencyExchangeVO(Long id, String from, String to, BigDecimal conversionMultiple) {
+    public CurrencyVO(Long id, String from, String to, BigDecimal conversionMultiple) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -88,7 +88,7 @@ public class CurrencyExchangeVO {
 
     @Override
     public String toString() {
-        return "CurrencyExchangeVO{" +
+        return "CurrencyVO{" +
                 "id=" + id +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +

@@ -1,6 +1,6 @@
 package com.demo.skyros.service;
 
-import com.demo.skyros.vo.CurrencyExchangeVO;
+import com.demo.skyros.vo.CurrencyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,7 +11,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
-public class CurrencyMailService {
+public class MailService {
 
     @Value("#${app.admin.mail}")
     private String adminMail;
@@ -19,22 +19,22 @@ public class CurrencyMailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public CurrencyExchangeVO sendMail(CurrencyExchangeVO currencyExchangeVO) {
+    public CurrencyVO sendMail(CurrencyVO currencyVO) {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;//true indicates multipart message
         try {
             helper = new MimeMessageHelper(message, true);
             helper.setSubject("Currency Report");
             helper.setTo(adminMail);
-            helper.setText(prepareMessageBody(currencyExchangeVO), true);
+            helper.setText(prepareMessageBody(currencyVO), true);
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        return currencyExchangeVO;
+        return currencyVO;
     }
 
-    private String prepareMessageBody(CurrencyExchangeVO currencyExchangeVO) {
+    private String prepareMessageBody(CurrencyVO currencyVO) {
 
         String body = "<html>\n" +
                 "  <head>\n" +
@@ -56,8 +56,8 @@ public class CurrencyMailService {
                 "    <div id=\"body\">\n" +
                 "      <p>Dear Admin,</p>\n" +
                 "      <p class=\"colored\">\n" +
-                "        Kindly note that currency is changed from " + currencyExchangeVO.getFrom() + " to " + currencyExchangeVO.getTo() + " with quantity " + currencyExchangeVO.getQuantity() + " and conversion multiple = " + currencyExchangeVO.getConversionMultiple() + "\n" +
-                "        Result : " + currencyExchangeVO.getConversionMultiple() + " * " + currencyExchangeVO.getQuantity() + " = " + currencyExchangeVO.getTotalCalculatedAmount() + "\n" +
+                "        Kindly note that currency is changed from " + currencyVO.getFrom() + " to " + currencyVO.getTo() + " with quantity " + currencyVO.getQuantity() + " and conversion multiple = " + currencyVO.getConversionMultiple() + "\n" +
+                "        Result : " + currencyVO.getConversionMultiple() + " * " + currencyVO.getQuantity() + " = " + currencyVO.getTotalCalculatedAmount() + "\n" +
                 "      <p>Best Regards,</p>\n" +
                 "      <p>Ahmed Baz</p>\n" +
                 "    </div>\n" +
