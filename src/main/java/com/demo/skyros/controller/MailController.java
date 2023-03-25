@@ -14,13 +14,18 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
-    @PostMapping("sendTransactionMail")
-    public void sendMail(@RequestBody CurrencyVO currencyVO) {
+    @PostMapping("transaction")
+    public void sendTransactionMail(@RequestBody CurrencyVO currencyVO) {
         mailService.sendTransactionMail(currencyVO);
     }
 
-    @PostMapping("sendReportMail")
-    public void sendReportMail(@RequestBody CurrencyReportVO currencyReportVO) {
+    @PostMapping("transactionsReport")
+    public void transactionsReport(@RequestBody CurrencyReportVO currencyReportVO) {
+        mailService.sendTransactionsReportMail(currencyReportVO);
+    }
+
+    @PostMapping("inquiryReport")
+    public void inquiryReport(@RequestBody CurrencyReportVO currencyReportVO) {
         mailService.sendTransactionsReportMail(currencyReportVO);
     }
 }
