@@ -3,6 +3,7 @@ package com.demo.skyros.controller;
 import com.demo.skyros.service.MailService;
 import com.demo.skyros.vo.CurrencyReportVO;
 import com.demo.skyros.vo.CurrencyVO;
+import com.demo.skyros.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,5 +28,10 @@ public class MailController {
     @PostMapping("inquiryReport")
     public void inquiryReport(@RequestBody CurrencyReportVO currencyReportVO) {
         mailService.sendTransactionsReportMail(currencyReportVO);
+    }
+
+    @PostMapping("account-activation")
+    public void sendAccountActivationMail(@RequestBody UserVO userVO) {
+        mailService.sendAccountActivationMail(userVO);
     }
 }

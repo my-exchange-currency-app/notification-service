@@ -2,6 +2,7 @@ package com.demo.skyros.service;
 
 import com.demo.skyros.vo.CurrencyReportVO;
 import com.demo.skyros.vo.CurrencyVO;
+import com.demo.skyros.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,6 +23,9 @@ public class MailService {
 
     @Autowired
     private ReportTemplateService reportTemplateService;
+
+    @Autowired
+    private AuthTemplateService authTemplateService;
 
     public void sendTransactionMail(CurrencyVO currencyVO) {
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -51,11 +55,33 @@ public class MailService {
         }
     }
 
+    public void sendAccountActivationMail(UserVO userVO) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = null;
+        try {
+            helper = new MimeMessageHelper(message, true);
+            helper.setSubject("Account activation");
+            helper.setTo(userVO.getEmail());
+            helper.setText(getAuthTemplateService().prepareMessageForAccountActivation(userVO), true);
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ReportTemplateService getReportTemplateService() {
         return reportTemplateService;
     }
 
     public void setReportTemplateService(ReportTemplateService reportTemplateService) {
         this.reportTemplateService = reportTemplateService;
+    }
+
+    public AuthTemplateService getAuthTemplateService() {
+        return authTemplateService;
+    }
+
+    public void setAuthTemplateService(AuthTemplateService authTemplateService) {
+        this.authTemplateService = authTemplateService;
     }
 }

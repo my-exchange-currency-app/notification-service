@@ -1,11 +1,8 @@
 package com.demo.skyros.service;
 
-import com.demo.skyros.vo.CurrencyExchangeVO;
 import com.demo.skyros.vo.CurrencyReportVO;
 import com.demo.skyros.vo.CurrencyVO;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ReportTemplateService {
@@ -91,7 +88,7 @@ public class ReportTemplateService {
 
         String tableBody;
         int i = 1;
-        for (CurrencyExchangeVO vo : currencyReportVO.getCurrencyExchangeVOList()) {
+        for (CurrencyVO vo : currencyReportVO.getCurrencyExchangeVOList()) {
             tableBody = "<tr align='center'>"
                     + "<td>" + (i++) + "</td>"
                     + "<td>" + vo.getFrom() + "</td>"
