@@ -43,7 +43,7 @@ public class ReportTemplateService {
         StringBuilder builder = new StringBuilder(header);
         builder.append(body);
 
-        String tableHeader = "<table width='100%' border='1' align='center'>"
+        String table = "<table width='100%' border='1' align='center'>"
                 + "<tr align='center'>"
                 + "<td> # </td>"
                 + "<td> From </td>"
@@ -51,11 +51,7 @@ public class ReportTemplateService {
                 + "<td> Conversion Multiple </td>"
                 + "<td> Quantity </td>"
                 + "<td> Total Calculated Amount</td>"
-                + "</tr>";
-
-        builder.append(tableHeader);
-
-        String tableBody = "<table width='100%' border='1' align='center'>"
+                + "</tr>"
                 + "<tr align='center'>"
                 + "<td> 1 </td>"
                 + "<td> " + currencyVO.getFrom() + " </td>"
@@ -65,7 +61,9 @@ public class ReportTemplateService {
                 + "<td> " + currencyVO.getTotalCalculatedAmount() + " </td>"
                 + "</tr>";
 
-        builder.append(tableBody);
+        builder.append(table);
+        String tableFooter = "</table>";
+        builder.append(tableFooter);
         builder.append(footer);
 
         return builder.toString();
