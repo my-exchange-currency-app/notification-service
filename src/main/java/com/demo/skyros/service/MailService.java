@@ -21,12 +21,6 @@ public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Autowired
-    private ReportTemplateService reportTemplateService;
-
-    @Autowired
-    private AuthTemplateService authTemplateService;
-
     public void sendTransactionMail(CurrencyVO currencyVO) {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;
@@ -34,7 +28,7 @@ public class MailService {
             helper = new MimeMessageHelper(message, true);
             helper.setSubject("Currency Report");
             helper.setTo(adminMail);
-            helper.setText(getReportTemplateService().prepareMessageBodyForTransaction(currencyVO), true);
+            helper.setText(ReportTemplateService.prepareMessageBodyForTransaction(currencyVO), true);
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -48,7 +42,7 @@ public class MailService {
             helper = new MimeMessageHelper(message, true);
             helper.setSubject("Transactions Report");
             helper.setTo(adminMail);
-            helper.setText(getReportTemplateService().prepareMessageBodyForTransactionReport(currencyReportVO), true);
+            helper.setText(ReportTemplateService.prepareMessageBodyForTransactionReport(currencyReportVO), true);
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -60,28 +54,13 @@ public class MailService {
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(message, true);
-            helper.setSubject("Account activation");
+            helper.setSubject("Account Activation");
             helper.setTo(userVO.getEmail());
-            helper.setText(getAuthTemplateService().prepareMessageForAccountActivation(userVO), true);
+            helper.setText(AuthTemplateService.prepareMessageForAccountActivation(userVO), true);
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 
-    public ReportTemplateService getReportTemplateService() {
-        return reportTemplateService;
-    }
-
-    public void setReportTemplateService(ReportTemplateService reportTemplateService) {
-        this.reportTemplateService = reportTemplateService;
-    }
-
-    public AuthTemplateService getAuthTemplateService() {
-        return authTemplateService;
-    }
-
-    public void setAuthTemplateService(AuthTemplateService authTemplateService) {
-        this.authTemplateService = authTemplateService;
-    }
 }

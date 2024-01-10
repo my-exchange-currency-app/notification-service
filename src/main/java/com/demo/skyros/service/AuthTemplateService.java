@@ -1,19 +1,19 @@
 package com.demo.skyros.service;
 
 import com.demo.skyros.vo.UserVO;
-import org.springframework.stereotype.Service;
+import lombok.experimental.UtilityClass;
 
-@Service
+@UtilityClass
 public class AuthTemplateService {
 
 
-    private final String footer =
+    private static final String FOOTER =
             " <p> BR,</p>\n" +
                     " <p> App Admin </p>\n" +
                     "    </div>\n" +
                     "  </body>\n" +
                     "</html>";
-    private final String header = "<html>\n" +
+    private static final String HEADER = "<html>\n" +
             "  <head>\n" +
             "    <style>\n" +
             "      .colored {\n" +
@@ -35,9 +35,9 @@ public class AuthTemplateService {
     public String prepareMessageForAccountActivation(UserVO userVO) {
         String body = "<p>Dear " + userVO.getUserName() + ",</p>\n" +
                 "<p class=\"colored\"> Kindly use OTP " + userVO.getOtp() + " to activate your account </p> \n";
-        StringBuilder builder = new StringBuilder(header);
+        StringBuilder builder = new StringBuilder(HEADER);
         builder.append(body);
-        builder.append(footer);
+        builder.append(FOOTER);
         return builder.toString();
     }
 }

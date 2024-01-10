@@ -2,12 +2,12 @@ package com.demo.skyros.service;
 
 import com.demo.skyros.vo.CurrencyReportVO;
 import com.demo.skyros.vo.CurrencyVO;
-import org.springframework.stereotype.Service;
+import lombok.experimental.UtilityClass;
 
-@Service
+@UtilityClass
 public class ReportTemplateService {
 
-    private final String footer =
+    private static final String FOOTER =
             " <p> Best Regards,</p>\n" +
                     " <p> Ahmed Baz </p>\n" +
                     " <p> Software Engineer </p>\n" +
@@ -17,7 +17,7 @@ public class ReportTemplateService {
                     "  </body>\n" +
                     "</html>";
 
-    private final String header = "<html>\n" +
+    private static final String HEADER = "<html>\n" +
             "  <head>\n" +
             "    <style>\n" +
             "      .colored {\n" +
@@ -40,7 +40,7 @@ public class ReportTemplateService {
     public String prepareMessageBodyForTransaction(CurrencyVO currencyVO) {
 
         String body = "<p class=\"colored\"> Kindly find the below transaction </p> \n";
-        StringBuilder builder = new StringBuilder(header);
+        StringBuilder builder = new StringBuilder(HEADER);
         builder.append(body);
 
         String table = "<table width='100%' border='1' align='center'>"
@@ -64,14 +64,14 @@ public class ReportTemplateService {
         builder.append(table);
         String tableFooter = "</table>";
         builder.append(tableFooter);
-        builder.append(footer);
+        builder.append(FOOTER);
 
         return builder.toString();
     }
 
     public String prepareMessageBodyForTransactionReport(CurrencyReportVO currencyReportVO) {
         String body = "<p class=\"colored\"> Kindly find the below transactions from " + currencyReportVO.getFrom() + ", to " + currencyReportVO.getTo() + " for below: </p> </p> \n";
-        StringBuilder builder = new StringBuilder(header);
+        StringBuilder builder = new StringBuilder(HEADER);
         builder.append(body);
 
         String tableHeader = "<table width='100%' border='1' align='center'>"
@@ -98,7 +98,7 @@ public class ReportTemplateService {
 
         String tableFooter = "</table>";
         builder.append(tableFooter);
-        builder.append(footer);
+        builder.append(FOOTER);
         return builder.toString();
     }
 }
