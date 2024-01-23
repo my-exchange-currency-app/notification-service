@@ -1,37 +1,23 @@
 package com.demo.skyros.controller;
 
 import com.demo.skyros.service.MailService;
-import com.demo.skyros.vo.CurrencyReportVO;
-import com.demo.skyros.vo.CurrencyVO;
-import com.demo.skyros.vo.UserVO;
+import com.demo.skyros.vo.MailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("mail")
 public class MailController {
 
     @Autowired
     private MailService mailService;
 
-    @PostMapping("transaction")
-    public void sendTransactionMail(@RequestBody CurrencyVO currencyVO) {
-        mailService.sendTransactionMail(currencyVO);
+    @PostMapping("/send")
+    public void sendEmail(@RequestBody MailVO vo) {
+        mailService.sendEmail(vo);
     }
 
-    @PostMapping("transactionsReport")
-    public void transactionsReport(@RequestBody CurrencyReportVO currencyReportVO) {
-        mailService.sendTransactionsReportMail(currencyReportVO);
-    }
-
-    @PostMapping("inquiryReport")
-    public void inquiryReport(@RequestBody CurrencyReportVO currencyReportVO) {
-        mailService.sendTransactionsReportMail(currencyReportVO);
-    }
-
-    @PostMapping("account-activation")
-    public void sendAccountActivationMail(@RequestBody UserVO userVO) {
-        mailService.sendAccountActivationMail(userVO);
-    }
 }
