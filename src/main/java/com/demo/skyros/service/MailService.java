@@ -22,41 +22,28 @@ public class MailService {
     private JavaMailSender javaMailSender;
 
     public void sendTransactionMail(CurrencyVO currencyVO) {
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
-        try {
-            helper = new MimeMessageHelper(message, true);
-            helper.setSubject("Currency Report");
-            helper.setTo(adminMail);
-            helper.setText(ReportTemplateService.prepareMessageBodyForTransaction(currencyVO), true);
-            javaMailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        String text = ReportTemplateService.prepareMessageBodyForTransaction(currencyVO);
+        sendMail("Currency Report", text, adminMail);
     }
 
     public void sendTransactionsReportMail(CurrencyReportVO currencyReportVO) {
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
-        try {
-            helper = new MimeMessageHelper(message, true);
-            helper.setSubject("Transactions Report");
-            helper.setTo(adminMail);
-            helper.setText(ReportTemplateService.prepareMessageBodyForTransactionReport(currencyReportVO), true);
-            javaMailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        String text = ReportTemplateService.prepareMessageBodyForTransactionReport(currencyReportVO);
+        sendMail("Transactions Report", text, adminMail);
     }
 
     public void sendAccountActivationMail(UserVO userVO) {
+        String text = AuthTemplateService.prepareMessageForAccountActivation(userVO);
+        sendMail("Account Activation", text, userVO.getEmail());
+    }
+
+    public void sendMail(String subject, String text, String to) {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(message, true);
-            helper.setSubject("Account Activation");
-            helper.setTo(userVO.getEmail());
-            helper.setText(AuthTemplateService.prepareMessageForAccountActivation(userVO), true);
+            helper.setSubject(subject);
+            helper.setTo(to);
+            helper.setText(text, true);
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
